@@ -110,16 +110,16 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
         // Obtiene el total de imagenes del volumen
         int numeroTotalImagenes = getImagenes().size();
         int dimX = referencia.getDimensionX();
-        cout << dimX << endl;
+        
         int dimY = referencia.getDimensionY();
-        cout << dimY << endl;
+        
 
         // Crea una imagen vacia para guardar los valores
         vector<vector<int>> imagen_nueva(numeroTotalImagenes, vector<int>(dimX, 0));
         // Crea vectores temporales para guardar valores calculados
         vector<int> temporal(dimX, 0);
         vector<int> temporal2(dimY, 0);
-        cout << "Entra a la direccion" << endl;
+        
         // Si el criterio para la proyeccion tiene el promedio
         if (criterio == "promedio")
         {
@@ -139,7 +139,7 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
                         temporal[j] += valores[i][j];
                         if (j == 0 && k == 0)
                         {
-                            cout << contador << " " << temporal[j] << endl;
+                            
                             contador++;
                         }
                     }
@@ -151,7 +151,7 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
                     temporal[j] /= dimY;
                     if (j == 0 && k == 0)
                     {
-                        cout << contador << " " << temporal[j] << endl;
+                        
                         contador++;
                     }
                 }
@@ -238,7 +238,7 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
                     }
                     // Ordena y busca el mayor valor de los pixeles
                     sort(temporal2.begin(), temporal2.end());
-                    cout << temporal2[dimY / 2];
+                    
                     temporal[i] = temporal2[dimY / 2];
                 }
 
@@ -260,7 +260,7 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
         imagenTemporal.setNombre(rutaFinal);
         imagenTemporal.setMaxClaro(maximo);
         // Guarda la imagen en formato pgm por medio de la funcion guardarComoPGM
-        cout << "Enviando a guardar " << imagen_nueva.size() << " " << imagen_nueva[0].size() << endl;
+        
         imagenTemporal.guardarComoPGM(rutaFinal);
     }
     else if (direccion == "y")
@@ -270,15 +270,15 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
         int maximo = -1;
         int numeroTotalImagenes = getImagenes().size();
         int dimX = referencia.getDimensionX();
-        cout << dimX << endl;
+        
         int dimY = referencia.getDimensionY();
-        cout << dimY << endl;
+        
 
         vector<vector<int>> imagen_nueva(dimY, vector<int>(numeroTotalImagenes, 0));
 
         vector<int> temporal(dimY, 0);
         vector<int> temporal2(dimX, 0);
-        cout << "Entra a la direccion y" << endl;
+        
 
         if (criterio == "promedio")
         {
@@ -386,7 +386,7 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
         imagenTemporal.setNombre(rutaFinal);
         imagenTemporal.setMaxClaro(maximo);
         // Guarda la imagen en formato pgm por medio de la funcion guardarComoPGM
-        cout << "Enviando a guardar " << imagen_nueva.size() << " " << imagen_nueva[0].size() << endl;
+        
         imagenTemporal.guardarComoPGM(rutaFinal);
     }
     else if (direccion == "z")
@@ -396,9 +396,9 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
         int maximo = -1;
         int numeroTotalImagenes = getImagenes().size();
         int dimX = referencia.getDimensionX();
-        cout << dimX << endl;
+        
         int dimY = referencia.getDimensionY();
-        cout << dimY << endl;
+        
 
         vector<vector<int>> imagen_nueva(dimX, vector<int>(dimY, 0));
         vector<vector<int>> imagen_nueva2(dimX, vector<int>(dimY, 256));
@@ -407,7 +407,7 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
         vector<int> temporal2(dimX, 0);
         Imagen imagenTemporal;
 
-        cout << "Entra a la direccion z" << endl;
+        
         if (criterio == "promedio")
         {
 
@@ -491,13 +491,13 @@ void VolumenImagenes::generarProyeccion2D(string &direccion, string &criterio, s
         imagenTemporal.setNombre(rutaFinal);
         imagenTemporal.setMaxClaro(maximo);
         // Guarda la imagen en formato pgm por medio de la funcion guardarComoPGM
-        cout << "Enviando a guardar " << imagen_nueva.size() << " " << imagen_nueva[0].size() << endl;
+        
         imagenTemporal.guardarComoPGM(rutaFinal);
     }
 
     else
     {
-        cout << "Mal" << endl;
+        cout << "Error" << endl;
     }
 
     return;
