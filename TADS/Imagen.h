@@ -34,6 +34,13 @@ public:
     // Constructor: inicializa la imagen con valores por defecto
     Imagen();
     
+
+    int codificacion(string& ruta);
+
+    vector<int> frecueciasDeValores();
+
+
+
     // Retorna la matriz de píxeles de la imagen
     vector<vector<int>> getVecImagen();
     

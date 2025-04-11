@@ -5,7 +5,7 @@ EXEC = bin/programa
 CXX = g++
 
 # Flags de compilación
-CXXFLAGS = -std=c++17 -I TADS/ Utils/
+CXXFLAGS = -std=c++17 -I TADS/ -I Utils/
 
 # Detectar sistema operativo
 OS := $(shell uname 2>/dev/null || echo Windows)
@@ -56,6 +56,8 @@ bin/Utils:
 clean:
 	$(RMDIR) bin
 	$(RM) $(EXEC)
+	clear
+	
 
 # Ejecutar el programa
 run: $(EXEC)

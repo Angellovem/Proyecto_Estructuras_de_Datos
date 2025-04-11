@@ -14,6 +14,7 @@ using namespace std;
 int main(){
     // Instancia de una imagen individual
     Imagen imagen;
+    Imagen codificador;
     
     // Instancia de un volumen de imágenes
     VolumenImagenes volumen;
@@ -71,6 +72,8 @@ int main(){
             else if(argumentos[0] == "salir" && argumentos.size() == 1){
                 cout << "Hasta luego" << endl;
                 return 0;
+            }else if(argumentos[0] == "codificar_imagen" && argumentos.size() == 2){
+                codificador.codificacion(argumentos[1]);
             }
             // Mensaje de error en caso de ingresar un comando incorrecto
             else{

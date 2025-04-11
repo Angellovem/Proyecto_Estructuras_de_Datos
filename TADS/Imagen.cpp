@@ -23,6 +23,29 @@ Imagen::Imagen()
     vecImagen = vector<vector<int>>();
 }
 
+int Imagen::codificacion(string &ruta)
+{
+    cargarDesdePGM(ruta);
+    vector<int> frec = frecueciasDeValores();
+    int cantidad = 0;
+    
+}
+
+vector<int> Imagen::frecueciasDeValores(){
+    vector<int> frecuencias(256,0);
+    for(int i = 0; i<dimensionY; i++){
+        for(int j = 0; j<dimensionX; j++){
+            int pos = vecImagen[i][j];
+            //cout<<"En la posicion "<<i<<" "<<j<<" está el valor de: "<<pos<<endl;
+            int cantidad = frecuencias[pos];
+            cantidad++;
+            frecuencias[pos] = cantidad;
+        }
+    }
+    return frecuencias;
+}
+
+
 // Implementación de otros métodos si es necesario
 /************
  * @brief Obtiene la matriz de píxeles de la imagen.
