@@ -17,11 +17,12 @@ Arbol::Arbol(){
     raiz = nullptr;
 }
 
-Arbol::~Arbol(){
-    eliminar(raiz);
-} 
 void Arbol::setRaiz(Nodo *ra){
     raiz = ra;
+}
+
+Nodo* Arbol::getRaiz(){
+    return raiz;
 }
 
 map<int,vector<bool>> Arbol::getValores(){
@@ -39,7 +40,9 @@ void Arbol::eliminar(Nodo* nodo){
 void Arbol::crearArbol(vector<pair<int,int>> frecuencias){
     priority_queue<Nodo*, std::vector<Nodo*>, decltype(comparador)> arbol(comparador);
     for(int i = 0; i<frecuencias.size(); i++){
+        //cout<<"\nFrecuencia de "<<frecuencias[i].first<<" es de: "<<frecuencias[i].second;
         if(frecuencias[i].second > 0){
+            //cout<<" pasa";
             Nodo *nuevo = new Nodo;
             nuevo->setEsHoja(true);
             nuevo->setFrecuencia(frecuencias[i].second);
@@ -55,6 +58,7 @@ void Arbol::crearArbol(vector<pair<int,int>> frecuencias){
         arbol.pop();
         auxiliarDerecha = arbol.top();
         arbol.pop();
+        //cout<<"Calculando con frecuencias de "<<auxiliarIzquierda->getFrecuencia() <<" y "<<auxiliarDerecha->getFrecuencia()<<endl;
         Nodo *nuevo = new Nodo;
         nuevo->setNodoDerecha(auxiliarDerecha);
         nuevo->setNodoIzquierda(auxiliarIzquierda);
@@ -63,18 +67,39 @@ void Arbol::crearArbol(vector<pair<int,int>> frecuencias){
         arbol.push(nuevo);
     }
     Nodo *raizArbol = arbol.top();
+    cout<<"la raiz tiene una frecuencia de: "<<raizArbol->getFrecuencia()<<endl;
     setRaiz(raizArbol);
 }
 
 void Arbol::completarValores(vector<bool> codigo, Nodo *raiz){
+    //cout<<"es una hoja?"<<endl;
     if(raiz->getEsHoja() == true){
-        valor.emplace(raiz->getValor(),codigo);
+        //cout<<"si es una hoja"<<endl;
+        valor.insert({raiz->getValor(),codigo});
+        cout<<"el valor de "<<raiz->getValor()<<" es: ";
+        for(auto b : valor[raiz->getValor()]){
+            cout<<b;
+        }
+        cout<<endl;
     }
-    codigo.push_back(0);
-    completarValores(codigo,raiz->getNodoDerecha());
-    codigo.pop_back();
-    codigo.push_back(1);
-    completarValores(codigo,raiz->getNodoDerecha());
+    if(raiz->getNodoDerecha() != nullptr){
+        codigo.push_back(false);
+        //cout<<"codigo es: ";
+        //cout<<endl;
+        completarValores(codigo,raiz->getNodoIzquierda());
+        //cout<<"ya se mando por derecha"<<endl;
+        codigo.pop_back();
+    }
+    if(raiz->getNodoDerecha()){
+        codigo.push_back(true);
+        //cout<<"codigo es: ";
+        //for(auto b : codigo){
+        //    cout<<b;
+        //}
+        //cout<<endl;
+        completarValores(codigo,raiz->getNodoDerecha());
+    }
+    //cout<<"ya se mando por izquieda"<<endl;
     
 }
 

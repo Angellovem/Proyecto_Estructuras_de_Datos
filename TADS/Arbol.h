@@ -18,8 +18,7 @@ class Arbol{
 
         //Constructor
         Arbol();
-        //Destructor
-        ~Arbol();
+
 
         //Getters y setters
         vector<bool> getCodificacion();

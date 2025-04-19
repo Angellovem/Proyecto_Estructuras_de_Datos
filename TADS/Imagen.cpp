@@ -25,7 +25,7 @@ Imagen::Imagen()
 
 vector<pair<int, int>> Imagen::codificacion()
 {
-    cout << "cargado" << endl;
+    //cout << "cargado" << endl;
     vector<pair<int, int>> frec = frecueciasDeValores();
     return frec;
 }
@@ -33,15 +33,15 @@ vector<pair<int, int>> Imagen::codificacion()
 vector<pair<int, int>> Imagen::frecueciasDeValores()
 {
     vector<pair<int, int>> frecuencias(getMaxClaro(), {0, 0});
-    cout << "creacion" << endl;
+    //cout << "creacion" << endl;
     for (int i = 0; i < frecuencias.size(); i++)
     {
         frecuencias[i].first = i;
     }
-    cout << "llenado" << endl;
+    //cout << "llenado" << endl;
     for (int i = 0; i < dimensionY; i++)
     {
-        cout << "analizando fila " << i << endl;
+        //cout << "analizando fila " << i << endl;
         for (int j = 0; j < dimensionX; j++)
         {
             int pos = vecImagen[i][j];
