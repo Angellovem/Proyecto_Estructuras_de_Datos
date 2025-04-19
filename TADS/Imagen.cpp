@@ -1,4 +1,4 @@
-/********************************************************************************* 
+/*********************************************************************************
 -Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
 -Pontificia Universidad Javeriana
 -Proyecto de Estructuras de Datos; Entrega 1
@@ -23,28 +23,49 @@ Imagen::Imagen()
     vecImagen = vector<vector<int>>();
 }
 
-int Imagen::codificacion(string &ruta)
+vector<pair<int, int>> Imagen::codificacion()
 {
-    cargarDesdePGM(ruta);
-    vector<int> frec = frecueciasDeValores();
-    int cantidad = 0;
-    
+    cout << "cargado" << endl;
+    vector<pair<int, int>> frec = frecueciasDeValores();
+    return frec;
 }
 
-vector<int> Imagen::frecueciasDeValores(){
-    vector<int> frecuencias(256,0);
-    for(int i = 0; i<dimensionY; i++){
-        for(int j = 0; j<dimensionX; j++){
+vector<pair<int, int>> Imagen::frecueciasDeValores()
+{
+    vector<pair<int, int>> frecuencias(getMaxClaro(), {0, 0});
+    cout << "creacion" << endl;
+    for (int i = 0; i < frecuencias.size(); i++)
+    {
+        frecuencias[i].first = i;
+    }
+    cout << "llenado" << endl;
+    for (int i = 0; i < dimensionY; i++)
+    {
+        cout << "analizando fila " << i << endl;
+        for (int j = 0; j < dimensionX; j++)
+        {
             int pos = vecImagen[i][j];
-            //cout<<"En la posicion "<<i<<" "<<j<<" está el valor de: "<<pos<<endl;
-            int cantidad = frecuencias[pos];
+            // cout<<"En la posicion "<<i<<" "<<j<<" está el valor de: "<<pos<<endl;
+            int cantidad = frecuencias[pos].second;
             cantidad++;
-            frecuencias[pos] = cantidad;
+            frecuencias[pos].second = cantidad;
         }
     }
-    return frecuencias;
+    //cout << "actualizado" << endl;
+    /*for (auto iterador = frecuencias.begin(); iterador != frecuencias.end();)
+    {
+        if (iterador->second == 0)
+        {
+            iterador = frecuencias.erase(iterador);
+        }
+        else
+        {
+            ++iterador;
+        }
+    }
+    */
+   return frecuencias;
 }
-
 
 // Implementación de otros métodos si es necesario
 /************
@@ -162,7 +183,8 @@ void Imagen::cargarDesdePGM(string &nombre)
         }
     }
 }
-string Imagen::getNombre(){
+string Imagen::getNombre()
+{
     return nombre;
 }
 
@@ -174,49 +196,50 @@ string Imagen::getFormato()
 int Imagen::getMaxClaro()
 {
     return maxClaro;
-} 
+}
 
 /************
  * @brief Guarda la imagen en formato PGM en una ruta especificada.
  * @param ruta Ruta donde se guardará el archivo.
  * Escribe los datos de la imagen en el archivo de salida en formato PGM.
  ************/
- void Imagen::guardarComoPGM(string &ruta)
- {
- 
-     ofstream archivo;
-     archivo.open(ruta);
- 
-     if (archivo.is_open())
-     {   
-         cout<<"P2\n";
-         cout<<getDimensionX()<<"\n";
-         cout<<getDimensionY()<<"\n";
-         cout<<getMaxClaro()<<"\n";
-        //Asignando el formato, dimensiones, el valor de píxel más grande y las dimensiones
-         archivo << getFormato() << "\n";
-         archivo << getDimensionX() << " " << getDimensionY() << "\n";
-         archivo << getMaxClaro() << "\n";
-         int dimY = getDimensionY();
-         int dimX = getDimensionX();
-         //Asignando los pixeles en sus respectivas coordenadas en el archivo
-         for (int i = 0; i < dimY; i++)
-         {
-             for (int j = 0; j < dimX; j++)
-             {   
-                 archivo << vecImagen[i][j] << " ";
-             }
-             if(i == dimY-1){
-                 archivo << "\n";
-             }
-         }
-     }
-     else
-     {
-         cout << "No se pudo abrir el archivo para escritura." << endl;
-     }
-     archivo.close();
- }
+void Imagen::guardarComoPGM(string &ruta)
+{
+
+    ofstream archivo;
+    archivo.open(ruta);
+
+    if (archivo.is_open())
+    {
+        cout << "P2\n";
+        cout << getDimensionX() << "\n";
+        cout << getDimensionY() << "\n";
+        cout << getMaxClaro() << "\n";
+        // Asignando el formato, dimensiones, el valor de píxel más grande y las dimensiones
+        archivo << getFormato() << "\n";
+        archivo << getDimensionX() << " " << getDimensionY() << "\n";
+        archivo << getMaxClaro() << "\n";
+        int dimY = getDimensionY();
+        int dimX = getDimensionX();
+        // Asignando los pixeles en sus respectivas coordenadas en el archivo
+        for (int i = 0; i < dimY; i++)
+        {
+            for (int j = 0; j < dimX; j++)
+            {
+                archivo << vecImagen[i][j] << " ";
+            }
+            if (i == dimY - 1)
+            {
+                archivo << "\n";
+            }
+        }
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo para escritura." << endl;
+    }
+    archivo.close();
+}
 
 /************
  * @brief Muestra información sobre la imagen cargada.
@@ -226,13 +249,13 @@ void Imagen::mostrarInfo()
 {
     if (vecImagen.empty())
     {
-        //Si no se pudo cargar la imagen a memoria
+        // Si no se pudo cargar la imagen a memoria
         cout << "No hay una imagen cargada en memoria" << endl;
         return;
     }
     else
     {
-        //Muestra datos de la imagen, como el nombre y las dimensiones
+        // Muestra datos de la imagen, como el nombre y las dimensiones
         cout << "Imagen cargada en memoria: " << nombre << ", ancho: " << getDimensionX() << ", alto: " << getDimensionY() << endl;
     }
 }

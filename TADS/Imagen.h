@@ -35,9 +35,9 @@ public:
     Imagen();
     
 
-    int codificacion(string& ruta);
+    vector<pair<int,int>> codificacion();
 
-    vector<int> frecueciasDeValores();
+    vector<pair<int,int>> frecueciasDeValores();
 
 
 

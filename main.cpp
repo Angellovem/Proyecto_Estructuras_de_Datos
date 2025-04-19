@@ -8,13 +8,16 @@
 #include "TADS/Imagen.h"
 #include "TADS/VolumenImagenes.h"
 #include "Utils/Menu.h"
+#include "TADS/Arbol.h"
+#include "TADS/Nodo.h"
+#include "TADS/ManejadorCodificacion.h"
 
 using namespace std;
 
 int main(){
     // Instancia de una imagen individual
     Imagen imagen;
-    Imagen codificador;
+    Manejador manejador;
     
     // Instancia de un volumen de imágenes
     VolumenImagenes volumen;
@@ -72,8 +75,10 @@ int main(){
             else if(argumentos[0] == "salir" && argumentos.size() == 1){
                 cout << "Hasta luego" << endl;
                 return 0;
-            }else if(argumentos[0] == "codificar_imagen" && argumentos.size() == 2){
-                codificador.codificacion(argumentos[1]);
+            }
+            else if(argumentos[0] == "codificar_imagen" && argumentos.size() == 2){
+                manejador.setImagen(imagen);
+                manejador.cargarDesdePGM(argumentos[1]);
             }
             // Mensaje de error en caso de ingresar un comando incorrecto
             else{

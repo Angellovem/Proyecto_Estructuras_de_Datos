@@ -9,13 +9,14 @@ using namespace std;
 
 class Nodo {
 
-    public:
-
+    private:
+        int frecuencia;
         int valor;
+        bool esHoja;
         Nodo* nodoIzquierda;
         Nodo* nodoDerecha;
 
-    private:
+    public:
 
         //Constructor
         Nodo();
@@ -24,12 +25,19 @@ class Nodo {
         ~Nodo();
 
         //Getters y Setters
+        int getFrecuencia();
+        void setFreciencia(int frec);
+        void setEsHoja(bool estado);
+        void getEsHoja();
         int getValor();
         void setValor(int valor);
         Nodo* getNodoIzquierda();
         void setNodoIzquierda(Nodo* nodoIzq);
         Nodo* getNodoDerecha();
         void setNodoDerecha(Nodo* nodoDer);
+
+        //Metodos propios
+        void establecerArbol(Nodo *raiz, int nivelesNecesarios, int nivelActual);
 
 };
 

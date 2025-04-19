@@ -20,10 +20,10 @@ else
 endif
 
 # Archivos fuente
-SRCS = main.cpp TADS/VolumenImagenes.cpp TADS/Imagen.cpp Utils/Menu.cpp
+SRCS = main.cpp TADS/VolumenImagenes.cpp TADS/Imagen.cpp Utils/Menu.cpp TADS/Arbol.cpp TADS/Nodo.cpp TADS/ManejadorCodificacion.cpp 
 
 # Archivos objeto
-OBJS = bin/main.o bin/TADS/VolumenImagenes.o bin/TADS/Imagen.o bin/Utils/Menu.o
+OBJS = bin/main.o bin/TADS/VolumenImagenes.o bin/TADS/Imagen.o bin/Utils/Menu.o bin/TADS/Arbol.o bin/TADS/Nodo.o bin/TADS/ManejadorCodificacion.o 
 
 # Regla principal: compilar el ejecutable
 $(EXEC): $(OBJS)
@@ -42,6 +42,14 @@ bin/TADS/Imagen.o: TADS/Imagen.cpp | bin/TADS
 bin/Utils/Menu.o: Utils/Menu.cpp | bin/Utils
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+bin/TADS/Arbol.o: TADS/Arbol.cpp | bin/TADS
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+bin/TADS/Nodo.o: TADS/Nodo.cpp | bin/TADS
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+bin/TADS/ManejadorCodificacion.o: TADS/ManejadorCodificacion.cpp | bin/TADS
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 # Crear carpetas necesarias
 bin:
 	$(MKDIR) bin
