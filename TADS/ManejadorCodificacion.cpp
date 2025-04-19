@@ -39,6 +39,14 @@ void Manejador::setCodificacion(vector<bool> cod){
     codificacion = cod;
 }
 
+vector<pair<int,int>> Manejador::getFrecuencias(){
+    return frecuencias;
+}
+
+void Manejador::setFrecuencias(vector<pair<int,int>> frec){
+    frecuencias = frec;
+}
+
 Arbol Manejador::getArbol(){
     return arbol;
 }
@@ -47,42 +55,46 @@ void Manejador::setArbol(Arbol arb){
      arbol = arb;
 }
 
-void Manejador::imprimirDatos(){
+void Manejador::codificar(){
     vector<pair<int,int>> prueba = imagen.codificacion();
-    for(auto p: prueba){
+    /*for(auto p: prueba){
         cout<<"Para el "<<p.first<<" hay "<<p.second<<endl;
-    }
-    arbol = Arbol(calcularNiveles(prueba));
-    
+    }*/
+    setFrecuencias(prueba);
+    arbol.crearArbol(getFrecuencias());
 }
 
-int Manejador::calcularNiveles(vector<pair<int,int>> frecuencias){
-    vector<int> potencias(10);
-    potencias[0] = 1;
-    potencias[1] = 2;
-    for(int i = 2; i<10; i++){
-        potencias[i] = potencias[i-1]*2;
-    }
-    int tamano = frecuencias.size();
-    for(int i = 0; i<potencias.size(); i++){
-        if(tamano <= potencias[i]){
-            return potencias[i];
-        }
-    }
-    return -1;
-}
 
 void Manejador::cargarDesdeHUF(string ruta){
     fstream archivo(ruta, ios::binary);
     string datos;
     getline(archivo,datos);
-    
-
 
 }
 
 void Manejador::cargarDesdePGM(string ruta){
-    imprimirDatos();
+    codificar();
+    arbol.crearArbol(getFrecuencias());
+    string espacio = " ";
     ofstream archivo(ruta, ios::binary | ios::out);
-    archivo.write(imagen.getFormato().c_str(),imagen.getFormato().size());
+    archivo.write(to_string(imagen.getDimensionX()).c_str(),to_string(imagen.getDimensionX()).size());
+    archivo.write(espacio.c_str(),espacio.size());
+    archivo.write(to_string(imagen.getDimensionY()).c_str(),to_string(imagen.getDimensionY()).size());
+    archivo.write(espacio.c_str(),espacio.size());
+        
+
+
+}
+
+
+void Manejador::numeroAbinario(){
+    map<int,vector<bool>> valores = arbol.getValores();
+    for(auto filas : imagen.getVecImagen()){
+        for (auto columna : filas){
+            vector<bool> resultado = valores[columna];
+            for(auto b : resultado){
+                codificacion.push_back(b);
+            }
+        }
+    }
 }

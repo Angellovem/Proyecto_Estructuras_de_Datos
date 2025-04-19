@@ -16,6 +16,9 @@ class Nodo {
         Nodo* nodoIzquierda;
         Nodo* nodoDerecha;
 
+        
+        
+
     public:
 
         //Constructor
@@ -26,9 +29,9 @@ class Nodo {
 
         //Getters y Setters
         int getFrecuencia();
-        void setFreciencia(int frec);
+        void setFrecuencia(int frec);
         void setEsHoja(bool estado);
-        void getEsHoja();
+        bool getEsHoja();
         int getValor();
         void setValor(int valor);
         Nodo* getNodoIzquierda();
@@ -37,7 +40,7 @@ class Nodo {
         void setNodoDerecha(Nodo* nodoDer);
 
         //Metodos propios
-        void establecerArbol(Nodo *raiz, int nivelesNecesarios, int nivelActual);
+    
 
 };
 

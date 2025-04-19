@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <utility>
+#include <map>
 #include <iostream>
 #include "Nodo.h"
 
@@ -11,22 +12,30 @@ class Arbol{
     private:
         vector<bool> codificacion;
         Nodo* raiz;
-        int niveles;
+        map<int,vector<bool>> valor;
+
     public:
 
         //Constructor
         Arbol();
-        Arbol(int niv);
         //Destructor
         ~Arbol();
 
         //Getters y setters
-        void asignarHojas(vector<pair<int,int>> frecuencias);
         vector<bool> getCodificacion();
         void setCodificacion(vector<bool> codificacion);
-        int getNiveles();
-        void setNiveles(int niv);
 
+        Nodo* getRaiz();
+        void setRaiz(Nodo *ra);
+
+        map<int,vector<bool>> getValores();
+        void setValores(map<int,vector<bool>> val);
+
+        void eliminar(Nodo* raiz);
+        void crearArbol(vector<pair<int,int>> frecuencias);
+
+        void completarValores(vector<bool> codigo, Nodo *raiz);
+        
 };
 
 //#include "Arbol.cpp"

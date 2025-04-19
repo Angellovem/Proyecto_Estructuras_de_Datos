@@ -11,18 +11,8 @@ Nodo::Nodo(){
     nodoDerecha = nullptr;
 }
 
-void Nodo::establecerArbol(Nodo *raiz, int nivelesNecesarios, int nivelActual){
-    if(nivelActual <= nivelesNecesarios){
-        raiz->nodoDerecha = nullptr;
-        raiz->nodoIzquierda = nullptr;
-        int nuevo = nivelActual+1;
-        establecerArbol(raiz->getNodoIzquierda(),nivelesNecesarios,nuevo);
-        establecerArbol(raiz->getNodoDerecha(),nivelActual,nuevo);
-    }
-    if(nivelActual == nivelesNecesarios){
-        raiz->getNodoDerecha()->setEsHoja(true);
-        raiz->getNodoIzquierda()->setEsHoja(false);
-    }
+Nodo::~Nodo(){
+    delete this;
 }
 
 Nodo* Nodo::getNodoDerecha(){
@@ -36,3 +26,31 @@ Nodo* Nodo::getNodoIzquierda(){
 void Nodo::setEsHoja(bool estado){
     esHoja = estado;
 }
+
+bool Nodo::getEsHoja(){
+    return esHoja;
+}
+
+void Nodo::setFrecuencia(int frec){
+    frecuencia = frec;
+}
+
+int Nodo::getFrecuencia(){
+    return frecuencia;
+}
+
+void Nodo::setNodoDerecha(Nodo *nod){
+    nodoDerecha = nod;
+}
+
+void Nodo::setNodoIzquierda(Nodo *nod){
+    nodoIzquierda = nod;
+}
+
+ void Nodo::setValor(int val){
+    valor = val;
+ }
+
+ int Nodo::getValor(){
+    return valor;
+ }

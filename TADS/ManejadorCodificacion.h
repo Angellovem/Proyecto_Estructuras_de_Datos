@@ -7,6 +7,7 @@ class Manejador{
     private:
         Imagen imagen;
         vector<bool> codificacion;
+        vector<pair<int,int>> frecuencias;
         Arbol arbol;
     public:
         Manejador();
@@ -18,14 +19,17 @@ class Manejador{
         vector<bool> getCodificacion();
         void setCodificacion(vector<bool> codificacion);
 
+        vector<pair<int,int>> getFrecuencias();
+        void setFrecuencias(vector<pair<int,int>> frec);
+
         Arbol getArbol();
         void setArbol(Arbol arbol);
 
         //Metodos propios
-        int calcularNiveles(vector<pair<int,int>> frecuencias);
-        void imprimirDatos();
+        void codificar();
         void cargarDesdePGM(string ruta);
         void cargarDesdeHUF(string ruta);
+        void numeroAbinario();
 
 };
 
