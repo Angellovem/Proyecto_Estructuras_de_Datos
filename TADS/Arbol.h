@@ -10,7 +10,6 @@
 class Arbol{
 
     private:
-        vector<bool> codificacion;
         Nodo* raiz;
         map<int,vector<bool>> valor;
 

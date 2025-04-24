@@ -80,6 +80,9 @@ int main(){
                 manejador.setImagen(imagen);
                 manejador.cargarDesdePGM(argumentos[1]);
             }
+            else if(argumentos[0] == "decodificar_archivo" && argumentos.size() == 3){
+                manejador.cargarDesdeHUF(argumentos[1],argumentos[2]);
+            }
             // Mensaje de error en caso de ingresar un comando incorrecto
             else{
                 cout << "Comando incorrecto" << endl;

@@ -28,7 +28,7 @@ class Manejador{
         //Metodos propios
         void codificar();
         void cargarDesdePGM(string ruta);
-        void cargarDesdeHUF(string ruta);
+        void cargarDesdeHUF(string rutaHUF, string rutaPGM);
         void numeroAbinario();
 
 };

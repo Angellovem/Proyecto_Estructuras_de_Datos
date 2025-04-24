@@ -205,33 +205,30 @@ int Imagen::getMaxClaro()
  ************/
 void Imagen::guardarComoPGM(string &ruta)
 {
-
     ofstream archivo;
     archivo.open(ruta);
 
     if (archivo.is_open())
     {
-        cout << "P2\n";
-        cout << getDimensionX() << "\n";
-        cout << getDimensionY() << "\n";
-        cout << getMaxClaro() << "\n";
-        // Asignando el formato, dimensiones, el valor de píxel más grande y las dimensiones
+        // Escribir el encabezado del archivo PGM
         archivo << getFormato() << "\n";
         archivo << getDimensionX() << " " << getDimensionY() << "\n";
         archivo << getMaxClaro() << "\n";
+
+        // Escribir los píxeles, asegurando un salto de línea al final de cada fila
         int dimY = getDimensionY();
         int dimX = getDimensionX();
-        // Asignando los pixeles en sus respectivas coordenadas en el archivo
         for (int i = 0; i < dimY; i++)
         {
             for (int j = 0; j < dimX; j++)
             {
-                archivo << vecImagen[i][j] << " ";
+                archivo << vecImagen[i][j];
+                if (j < dimX - 1)
+                {
+                    archivo << " "; // Espacio entre píxeles de la misma fila
+                }
             }
-            if (i == dimY - 1)
-            {
-                archivo << "\n";
-            }
+            archivo << "\n"; // Salto de línea al final de cada fila
         }
     }
     else

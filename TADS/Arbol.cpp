@@ -67,7 +67,7 @@ void Arbol::crearArbol(vector<pair<int,int>> frecuencias){
         arbol.push(nuevo);
     }
     Nodo *raizArbol = arbol.top();
-    cout<<"la raiz tiene una frecuencia de: "<<raizArbol->getFrecuencia()<<endl;
+    //cout<<"la raiz tiene una frecuencia de: "<<raizArbol->getFrecuencia()<<endl;
     setRaiz(raizArbol);
 }
 
@@ -76,13 +76,13 @@ void Arbol::completarValores(vector<bool> codigo, Nodo *raiz){
     if(raiz->getEsHoja() == true){
         //cout<<"si es una hoja"<<endl;
         valor.insert({raiz->getValor(),codigo});
-        cout<<"el valor de "<<raiz->getValor()<<" es: ";
-        for(auto b : valor[raiz->getValor()]){
+        //cout<<"el valor de "<<raiz->getValor()<<" es: ";
+        /*for(auto b : valor[raiz->getValor()]){
             cout<<b;
         }
-        cout<<endl;
+        cout<<endl;*/
     }
-    if(raiz->getNodoDerecha() != nullptr){
+    if(raiz->getNodoIzquierda() != nullptr){
         codigo.push_back(false);
         //cout<<"codigo es: ";
         //cout<<endl;
@@ -90,7 +90,7 @@ void Arbol::completarValores(vector<bool> codigo, Nodo *raiz){
         //cout<<"ya se mando por derecha"<<endl;
         codigo.pop_back();
     }
-    if(raiz->getNodoDerecha()){
+    if(raiz->getNodoDerecha() != nullptr){
         codigo.push_back(true);
         //cout<<"codigo es: ";
         //for(auto b : codigo){
