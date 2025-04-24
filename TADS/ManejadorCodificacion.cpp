@@ -1,3 +1,9 @@
+/*********************************************************************************
+-Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
+-Pontificia Universidad Javeriana
+-Proyecto de Estructuras de Datos; Entrega 2
+-Temas: TADs, Compilacion Modular, Contenedores, Estructuras Lineales
+*********************************************************************************/
 #include "ManejadorCodificacion.h"
 #include "Arbol.h"
 #include <vector>
@@ -5,7 +11,10 @@
 #include <fstream>
 
 using namespace std;
-
+/**
+ * @brief Constructor por defecto del manejador
+ * 
+ */
 Manejador::Manejador()
 {
     imagen = Imagen();
@@ -14,11 +23,10 @@ Manejador::Manejador()
 }
 
 /**
- * @brief Getters y setters
+ * @brief Getters y setters de los atributos de la clase
  *
  * @return Imagen
  */
-
 Imagen Manejador::getImagen()
 {
     return imagen;
@@ -59,6 +67,11 @@ void Manejador::setArbol(Arbol arb)
     arbol = arb;
 }
 
+/**
+ * @brief Se utilizan metodos de distintas clases con el fin de generar una codificacion
+ * completa sobre una imagen
+ * 
+ */
 void Manejador::codificar()
 {
     vector<pair<int, int>> prueba = imagen.codificacion();
@@ -78,6 +91,14 @@ void Manejador::codificar()
     // cout<<"se convierte de numero a binario"<<endl;
 }
 
+/**
+ * @brief Se reciben dos rutas, la primera donde se encuentra ubicado
+ * el archivo binario, y la otra donde se creara la imagen
+ * Se lee el contenido del archivo binario y se realizan las operaciones necesarias
+ * tales como asignar valores de tamaño y tipo a la imagen, las frecuencias, entre otras.
+ * @param rutaHUF 
+ * @param rutaPGM 
+ */
 void Manejador::cargarDesdeHUF(string rutaHUF, string rutaPGM)
 {
     ifstream archivo(rutaHUF, ios::binary | ios::in);
@@ -174,7 +195,11 @@ void Manejador::cargarDesdeHUF(string rutaHUF, string rutaPGM)
     imagen.setVecImagen(matriz);
     imagen.guardarComoPGM(rutaPGM);
 }
-
+/**
+ * @brief Rellena el vector de booleanos con la codificacion correspondiente
+ * usando el arbol de Huffman
+ * 
+ */
 void Manejador::numeroAbinario()
 {
     map<int, vector<bool>> valores = arbol.getValores();
@@ -198,6 +223,12 @@ void Manejador::numeroAbinario()
     }
 }
 
+/**
+ * @brief Recibe la ruta del archivo donde se generará el binario
+ * Codifica la imagen que se encuentre en memoria y rellena el archivo en cuestion.
+ * 
+ * @param ruta 
+ */
 void Manejador::cargarDesdePGM(string ruta)
 {
     if (imagen.getMaxClaro() == 0)

@@ -1,7 +1,7 @@
 /********************************************************************************* 
 -Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
 -Pontificia Universidad Javeriana
--Proyecto de Estructuras de Datos; Entrega 1
+-Proyecto de Estructuras de Datos; Entrega 2
 -Temas: TADs, Compilacion Modular, Contenedores, Estructuras Lineales
 *********************************************************************************/
 

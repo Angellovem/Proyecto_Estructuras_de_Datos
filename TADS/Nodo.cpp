@@ -1,8 +1,18 @@
+/*********************************************************************************
+-Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
+-Pontificia Universidad Javeriana
+-Proyecto de Estructuras de Datos; Entrega 2
+-Temas: TADs, Compilacion Modular, Contenedores, Estructuras Lineales
+*********************************************************************************/
 #include <vector>
 #include <utility>
 #include "Nodo.h"
 using namespace std;
 
+/**
+ * @brief Constructor por defecto 
+ * 
+ */
 Nodo::Nodo(){
     frecuencia = -1;
     valor = -1;
@@ -11,10 +21,19 @@ Nodo::Nodo(){
     nodoDerecha = nullptr;
 }
 
+/**
+ * @brief Destructor por defecto
+ * 
+ */
 Nodo::~Nodo(){
     delete this;
 }
 
+/**
+ * @brief Getters y Setters
+ * 
+ *
+ */
 Nodo* Nodo::getNodoDerecha(){
     return nodoDerecha;
 }

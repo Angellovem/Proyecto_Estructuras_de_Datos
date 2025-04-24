@@ -1,7 +1,7 @@
 /*********************************************************************************
 -Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
 -Pontificia Universidad Javeriana
--Proyecto de Estructuras de Datos; Entrega 1
+-Proyecto de Estructuras de Datos; Entrega 2
 -Temas: TADs, Compilacion Modular, Contenedores, Estructuras Lineales
 *********************************************************************************/
 #include "Imagen.h"
@@ -23,25 +23,36 @@ Imagen::Imagen()
     vecImagen = vector<vector<int>>();
 }
 
+/**
+ * @brief Regresa un vector de pares equivalente a las frecuencias
+ *
+ * @return vector<pair<int, int>>
+ */
 vector<pair<int, int>> Imagen::codificacion()
 {
-    //cout << "cargado" << endl;
+    // cout << "cargado" << endl;
     vector<pair<int, int>> frec = frecueciasDeValores();
     return frec;
 }
 
+/**
+ * @brief Recorre la imagen actualizando las frecuencias
+ * de cada uno de los valores de la misma
+ *
+ * @return vector<pair<int, int>>
+ */
 vector<pair<int, int>> Imagen::frecueciasDeValores()
 {
     vector<pair<int, int>> frecuencias(getMaxClaro(), {0, 0});
-    //cout << "creacion" << endl;
+    // cout << "creacion" << endl;
     for (int i = 0; i < frecuencias.size(); i++)
     {
         frecuencias[i].first = i;
     }
-    //cout << "llenado" << endl;
+    // cout << "llenado" << endl;
     for (int i = 0; i < dimensionY; i++)
     {
-        //cout << "analizando fila " << i << endl;
+        // cout << "analizando fila " << i << endl;
         for (int j = 0; j < dimensionX; j++)
         {
             int pos = vecImagen[i][j];
@@ -51,7 +62,7 @@ vector<pair<int, int>> Imagen::frecueciasDeValores()
             frecuencias[pos].second = cantidad;
         }
     }
-    //cout << "actualizado" << endl;
+    // cout << "actualizado" << endl;
     /*for (auto iterador = frecuencias.begin(); iterador != frecuencias.end();)
     {
         if (iterador->second == 0)
@@ -64,10 +75,10 @@ vector<pair<int, int>> Imagen::frecueciasDeValores()
         }
     }
     */
-   return frecuencias;
+    return frecuencias;
 }
 
-// Implementación de otros métodos si es necesario
+
 /************
  * @brief Obtiene la matriz de píxeles de la imagen.
  * @return Matriz de píxeles en formato vector de vectores.

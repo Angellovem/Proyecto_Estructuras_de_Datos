@@ -1,3 +1,9 @@
+/*********************************************************************************
+-Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
+-Pontificia Universidad Javeriana
+-Proyecto de Estructuras de Datos; Entrega 2
+-Temas: TADs, Compilacion Modular, Contenedores, Estructuras Lineales
+*********************************************************************************/
 #ifndef NODO_H
 #define NODO_H
 
@@ -10,14 +16,16 @@ using namespace std;
 class Nodo {
 
     private:
+        //Frecuencia de aparicion de determinado valor en la imagen
         int frecuencia;
+        //Un valor de la imagen
         int valor;
+        //Indica si el nodo actual es una hoja del arbol.
         bool esHoja;
+        //Apuntador de tipo Nodo al hijo izquierdo
         Nodo* nodoIzquierda;
+        //Apuntador de tipo Nodo al hijo derecho
         Nodo* nodoDerecha;
-
-        
-        
 
     public:
 
@@ -39,7 +47,6 @@ class Nodo {
         Nodo* getNodoDerecha();
         void setNodoDerecha(Nodo* nodoDer);
 
-        //Metodos propios
     
 
 };

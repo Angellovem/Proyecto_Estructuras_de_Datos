@@ -1,3 +1,9 @@
+/*********************************************************************************
+-Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
+-Pontificia Universidad Javeriana
+-Proyecto de Estructuras de Datos; Entrega 2
+-Temas: TADs, Compilacion Modular, Contenedores, Estructuras Lineales
+*********************************************************************************/
 #include <vector>
 #include <utility>
 #include <queue>
@@ -7,16 +13,29 @@
 #include "Imagen.h"
 
 using namespace std;
-
+/**
+ * @brief Un comparador personalizado. Al momento de insertar nodos en la cola de
+ * prioridad no se organizan por defecto dado que son apuntadores de una clase.
+ * Para resolver esto se crea un comparador personalizado usando una funcion anonima
+ * (funcion lambda) donde filtramos las frecuencias de cada uno de los nodos.
+ * 
+ */
 auto comparador = [](Nodo* a, Nodo* b) {
     return a->getFrecuencia() > b->getFrecuencia();
 };
 
-
+/**
+ * @brief Constructor por defecto
+ * 
+ */
 Arbol::Arbol(){
     raiz = nullptr;
 }
-
+/**
+ * @brief Getters y setters
+ * 
+ * 
+ */
 void Arbol::setRaiz(Nodo *ra){
     raiz = ra;
 }
@@ -29,6 +48,11 @@ map<int,vector<bool>> Arbol::getValores(){
     return valor;
 }
 
+/**
+ * @brief Elimina recursivamente memoria del nodo raiz de un arbol
+ * 
+ * @param nodo 
+ */
 void Arbol::eliminar(Nodo* nodo){
     if(nodo != nullptr){
         eliminar(nodo->getNodoIzquierda());
@@ -36,7 +60,13 @@ void Arbol::eliminar(Nodo* nodo){
         delete nodo;
     }
 }
-
+/**
+ * @brief Usando las frecuencias se genera un arbol de Huffman usando
+ * las frecuencias de los valores ya extraidas. Se usa un cola de prioridad
+ * la cual está implementada bajo el concepto de min_heap.
+ * Revisar las aclaraciones del readme.md
+ * @param frecuencias 
+ */
 void Arbol::crearArbol(vector<pair<int,int>> frecuencias){
     priority_queue<Nodo*, std::vector<Nodo*>, decltype(comparador)> arbol(comparador);
     for(int i = 0; i<frecuencias.size(); i++){
@@ -71,6 +101,12 @@ void Arbol::crearArbol(vector<pair<int,int>> frecuencias){
     setRaiz(raizArbol);
 }
 
+/**
+ * @brief Rellena los valores necesarios del mapa recorriendo el arbol
+ * 
+ * @param codigo 
+ * @param raiz 
+ */
 void Arbol::completarValores(vector<bool> codigo, Nodo *raiz){
     //cout<<"es una hoja?"<<endl;
     if(raiz->getEsHoja() == true){
