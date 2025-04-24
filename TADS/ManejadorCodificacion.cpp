@@ -194,6 +194,7 @@ void Manejador::cargarDesdeHUF(string rutaHUF, string rutaPGM)
     imagen.setFormato(formato);
     imagen.setVecImagen(matriz);
     imagen.guardarComoPGM(rutaPGM);
+    cout<< "El archivo "<<rutaHUF<<" ha sido decodificado exitosamente, y la imagen correspondiente se ha almacenado en el archivo "<<rutaPGM<<".\n";
 }
 /**
  * @brief Rellena el vector de booleanos con la codificacion correspondiente
