@@ -1,17 +1,17 @@
-# Integrantes
+# 👥 Integrantes
 
-[Salomon Avila](https://github.com/MrMich34)
+- [Salomon Avila](https://github.com/MrMich34)
 
-[Tomas Silva](https://github.com/Tomas-SilvaC)
+- [Tomas Silva](https://github.com/Tomas-SilvaC)
 
-[Gabriel Jaramillo](https://github.com/GabrielJaramilloCuberos)
+- [Gabriel Jaramillo](https://github.com/GabrielJaramilloCuberos)
 
-[Juan Pabon](https://github.com/JohnWilliams2050)
+- [Juan Pabon](https://github.com/JohnWilliams2050)
 
-[Angel Morales](https://github.com/Angellovem)
+- [Angel Morales](https://github.com/Angellovem)
 
 
-## Installation
+## 🛠️ Instalacion
 
 Al usar makefile se compila de la siguiente manera
 
@@ -20,9 +20,12 @@ make clean
 
 make run
 ```
-## Usage
+## 📝 Entrega
 
-Por la estructura del codigo consta de 4 comandos importantes
+Esta entrega corresponde a la entrega 1 del proyecto de Estructuras de datos
+
+## 🖥️ Uso
+Por la estructura del codigo consta de 5 comandos importantes
 
 Cargar imagen
 ```bash
@@ -66,11 +69,12 @@ proyeccion2D z mediana imagenFinalMedianaZ.pgm
 ```
 
 
-## Entrega
+## 🚚 Entrega
 
 Esta entrega corresponde a la entrega 2 del proyecto de Estructuras de datos
 
-## Aclaraciones
+
+## 📜 Aclaraciones
 En el lenguaje de programación de c++, el tipo de dato primitivo *bool* utiliza un byte _(8 bits)_ para su implementacion ([Fuente](https://learn.microsoft.com/en-us/cpp/cpp/fundamental-types-cpp?view=msvc-170#sizes-of-built-in-types)).
 
 Una posible solucion para guardar bits individualmente es mediante el uso de un [bitset](https://cplusplus.com/reference/bitset/bitset/), sin embargo este unicamente funciona referente a un tamaño fijo, o en otras palabras, no es un contenedor dinamico.
@@ -81,3 +85,20 @@ Para la [cola de prioridad personalizada](https://www.geeksforgeeks.org/custom-c
 Elegimos como tipo de dato un apuntador de tipo Nodo, como contenedor un vector del mismo
 tipo y por ultimo el comparador es el personalizado creado en la misma implementacion del Arbol.
 Posterior al nombre se vuelve a incluir el comparador para generar su instancia.
+
+## 🖥️  Uso
+
+Por la estructura del codigo consta de 2 comandos adicionales y el uso de uno anterior.
+
+Cargar imagen
+```bash
+cargar_imagen img_02.pgm
+```
+Codificar imagen
+```bash
+codificar_imagen datos.huf
+```
+Decodificar archivo
+```bash
+decodificar_archivo datos.huf salida.pgm
+```
