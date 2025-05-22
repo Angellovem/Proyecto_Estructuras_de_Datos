@@ -11,16 +11,24 @@
 #include "TADS/Arbol.h"
 #include "TADS/Nodo.h"
 #include "TADS/ManejadorCodificacion.h"
+#include "TADS/Grafo.h"
+
+
 
 using namespace std;
 
 int main(){
     // Instancia de una imagen individual
     Imagen imagen;
-    Manejador manejador;
     
     // Instancia de un volumen de imágenes
     VolumenImagenes volumen;
+
+    //Instancia de un manejador para realizar la compresion
+    Manejador manejador;
+
+    //Instancia de un grafo para una unica imagen
+    Grafo grafo;
 
     // Mensaje de bienvenida
     cout << "Bienvenido al sistema de manejo de imágenes de la Pontificia Universidad Javeriana" << endl;
@@ -84,6 +92,24 @@ int main(){
                 manejador.cargarDesdeHUF(argumentos[1],argumentos[2]);
             }
             // Mensaje de error en caso de ingresar un comando incorrecto
+            else if((argumentos[0] == "segmentar") && ((argumentos.size()-3) % 3 == 0)){
+                grafo.setImagen(imagen);
+                cout<<"tiene las dimensiones: "<<grafo.getImagen().getDimensionX()<<" y "<<grafo.getImagen().getDimensionY()<<endl;
+                grafo.inicializarGrafo();
+                cout<<"Se inicializa";
+                grafo.inicializarDistancias();
+                cout<<"Se iniciaron las distancias";
+                int x,y,l;
+                vector<tuple<int,int,int>> semillas;
+                for(int i = 2; i<argumentos.size(); i+=3 ){
+                    x = stoi(argumentos[i]);
+                    y = stoi(argumentos[i+1]);
+                    l = stoi(argumentos[i+2]);
+                    semillas.push_back({x,y,l});
+                }
+                grafo.imprimirGrafo();
+                cout<<"Se imprimio"<<endl;
+            }
             else{
                 cout << "Comando incorrecto" << endl;
             }
