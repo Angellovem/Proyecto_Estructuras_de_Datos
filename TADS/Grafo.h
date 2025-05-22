@@ -1,3 +1,10 @@
+/*********************************************************************************
+-Nombres: Gabriel Jaramillo, Salomon Avila, Tomas Silva, Juan Pabon, Angel Morales
+-Pontificia Universidad Javeriana
+-Proyecto de Estructuras de Datos; Entrega 3
+-Temas: TADs, Compilacion Modular, Contenedores, Estructuras Lineales, Estructuras no lineales
+*********************************************************************************/
+
 #ifndef GRAFO_H
 #define GRAFO_H
 
