@@ -11,6 +11,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+void bienvenida();
 void menu();
 
 #endif //MENU_H

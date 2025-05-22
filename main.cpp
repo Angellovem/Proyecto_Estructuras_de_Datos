@@ -31,7 +31,7 @@ int main(){
     Grafo grafo;
 
     // Mensaje de bienvenida
-    cout << "Bienvenido al sistema de manejo de imágenes de la Pontificia Universidad Javeriana" << endl;
+    bienvenida();
     
     string opt;
     while (true){

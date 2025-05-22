@@ -2,13 +2,9 @@
 
 using namespace std;
 
-Grafo::Grafo()
-{
-}
+Grafo::Grafo(){}
 
-Grafo::~Grafo()
-{
-}
+Grafo::~Grafo(){}
 
 // Getters y Setters
 Imagen Grafo::getImagen()
@@ -42,12 +38,17 @@ void Grafo::setImagenSegmentada(Imagen nuevaImagenSegmentada)
 }
 
 // Operaciones propias del grafo
+/**
+ * @brief Inicializa el grafo teniendo en cuenta
+ * el tamaño de la imagen
+ * 
+ */
 void Grafo::inicializarGrafo()
 {
     vector<vector<pair<int, int>>> nuevoGrafo((imagen.getDimensionX() * imagen.getDimensionY()) + 1);
     grafo = nuevoGrafo;
     vector<vector<int>> valores = imagen.getVecImagen();
-    cout << "Dimensiones esperadas: " << imagen.getDimensionY() << " x " << imagen.getDimensionX() << endl;
+        cout << "Dimensiones esperadas: " << imagen.getDimensionY() << " x " << imagen.getDimensionX() << endl;
     cout << "Dimensiones reales: " << valores.size();
     if (!valores.empty())
         cout << " x " << valores[0].size() << endl;
@@ -93,6 +94,10 @@ void Grafo::inicializarGrafo()
     cout<<"terminado"<<endl;
 }
 
+/**
+ * @brief Se inicializa la matriz de distancias necesarias para nuestro Dijkstra
+ * 
+ */
 void Grafo::inicializarDistancias()
 {
     int max = INT_MAX;
@@ -107,6 +112,11 @@ void Grafo::inicializarDistancias()
     }
 }
 
+/**
+ * @brief Funcion auxiliar que en caso de ser necesaria
+ * imprime la lista de adyacencia de cada uno de los nodos
+ * 
+ */
 void Grafo::imprimirGrafo()
 {
     fstream archivo;
@@ -122,11 +132,27 @@ void Grafo::imprimirGrafo()
     archivo.close();
 }
 
+/**
+ * @brief Se calcula la posicion en la lista de adyacencia de determinadas coordenadas
+ * Nunca se repiten los valores por la forma que este se calcula
+ * se multiplica Y por la cantidad de columnas de la imagen y se le adiciona X
+ * 
+ * @param x 
+ * @param y 
+ * @return int 
+ */
 int Grafo::calcularId(int x, int y)
 {
     return ((y * imagen.getDimensionX()) + x);
 }
 
+/**
+ * @brief Proceso inverso a la funcion de calcularID, usando dos cordenaadas genera
+ * la posicion en la lista de adyacencia
+ * 
+ * @param id 
+ * @return pair<int, int> 
+ */
 pair<int, int> Grafo::calcularCordenadas(int id)
 {
     pair<int, int> res;
@@ -136,11 +162,20 @@ pair<int, int> Grafo::calcularCordenadas(int id)
     return res;
 }
 
+/**
+ * @brief FUncion principal donde se segmenta una imagen en regiones usando las semillas
+ * 
+ * @param nombre 
+ * @param semillas 
+ */
 void Grafo::segmentarImagen(string nombre, vector<tuple<int, int, int>> semillas)
-{
+{   
+    //Valor maximo de intensidad
     int etiquetaMaxima = 0;
+    //Por cada una de las semillas se hace una operacion definida
     for (int i = 0; i < semillas.size(); i++)
     {
+        //Se extraen los datos de la semilla
         cout<<"La semilla "<<i<<" es: ";
         tuple<int, int, int> tupla = semillas[i];
         int corX = get<0>(tupla);
@@ -152,21 +187,29 @@ void Grafo::segmentarImagen(string nombre, vector<tuple<int, int, int>> semillas
             etiquetaMaxima = etiqueta;
         }
         cout<<" L: "<<etiqueta<<endl;
+        //Se calcula la posicion de la semilla
         int posicion = calcularId(corX, corY);
         distancias[corY][corX] = {0, etiqueta};
+        //Para tener un Dijkstra eficiente, usamos una cola de prioridad
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+        //Para poder implementarlo debemos tener un arreglo de visitados, esto con el fin
+        //de no repetir el nodo
         vector<bool> visitado((imagen.getDimensionX() * imagen.getDimensionY()), false);
         int id = calcularId(corX, corY);
         q.push({0, id});
+        //Mientras la cola no esté vacia (Mientras no se hayan recorrido todos los nodos)
         while (!q.empty())
         {
+            //Lo marcamos como visitado si no lo está
             int a = q.top().second;
             q.pop();
             if (visitado[a])
                 continue;
             visitado[a] = true;
+            //Por cada uno de los elementos de la lista de adyacencia de ese nodo
             for (auto u : grafo[a])
             {
+                //calculamos la distancia que existe y en caso de ser necesario la actualizamos
                 int b = u.first, w = u.second;
                 pair<int, int> auxiliar = calcularCordenadas(a);
                 int temX, temY;
@@ -185,6 +228,8 @@ void Grafo::segmentarImagen(string nombre, vector<tuple<int, int, int>> semillas
             }
         }
     }
+    //Cada imagen tiene un vector de frecuencias
+    //Lo que haremos es usar las etiquetas para generar una nueva imagen
     vector<vector<int>> nuevasFrecuencias(imagen.getDimensionY(), vector<int>(imagen.getDimensionX()));
     for (int i = 0; i < imagen.getDimensionY(); i++)
     {
@@ -193,6 +238,7 @@ void Grafo::segmentarImagen(string nombre, vector<tuple<int, int, int>> semillas
             nuevasFrecuencias[i][j] = distancias[i][j].second;
         }
     }
+    //Asignamos los valores correspondientes de una imagen en formato PGM
     imagenSegmentada.setDimensionX(imagen.getDimensionX());
     imagenSegmentada.setDimensionY(imagen.getDimensionY());
     string formato = "P2";
