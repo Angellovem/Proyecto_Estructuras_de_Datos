@@ -55,7 +55,7 @@ int main(){
         
         // Eliminar el último elemento vacío generado por el flujo de cadena
         argumentos.pop_back();
-        
+        cout<<"usted tiene "<<argumentos.size()<<" argumentos"<<endl;
         // Verificar que haya al menos un argumento ingresado
         if(argumentos.size() > 0){
             // Comando para cargar una imagen desde un archivo PGM
@@ -92,7 +92,7 @@ int main(){
                 manejador.cargarDesdeHUF(argumentos[1],argumentos[2]);
             }
             // Mensaje de error en caso de ingresar un comando incorrecto
-            else if((argumentos[0] == "segmentar") && ((argumentos.size()-3) % 3 == 0)){
+            else if((argumentos[0] == "segmentar") && ((argumentos.size()-2) % 3 == 0)){
                 grafo.setImagen(imagen);
                 cout<<"tiene las dimensiones: "<<grafo.getImagen().getDimensionX()<<" y "<<grafo.getImagen().getDimensionY()<<endl;
                 grafo.inicializarGrafo();
@@ -107,7 +107,8 @@ int main(){
                     l = stoi(argumentos[i+2]);
                     semillas.push_back({x,y,l});
                 }
-                grafo.imprimirGrafo();
+                string salida = argumentos[1];
+                grafo.segmentarImagen(salida, semillas);
                 cout<<"Se imprimio"<<endl;
             }
             else{

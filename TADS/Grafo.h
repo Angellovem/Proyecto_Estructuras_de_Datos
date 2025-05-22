@@ -26,7 +26,9 @@ class Grafo{
         void inicializarGrafo();
         void inicializarDistancias();
         void imprimirGrafo();
-        void segmentarImagen(vector<tuple<int,int,int>> semillas);
+        int calcularId(int x, int y);
+        pair<int,int> calcularCordenadas(int id);
+        void segmentarImagen(string nombre,vector<tuple<int,int,int>> semillas);
         
 };
 

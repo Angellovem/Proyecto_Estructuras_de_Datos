@@ -2,12 +2,12 @@
 
 using namespace std;
 
-Grafo::Grafo(){
-
+Grafo::Grafo()
+{
 }
 
-Grafo::~Grafo(){
-
+Grafo::~Grafo()
+{
 }
 
 // Getters y Setters
@@ -44,49 +44,59 @@ void Grafo::setImagenSegmentada(Imagen nuevaImagenSegmentada)
 // Operaciones propias del grafo
 void Grafo::inicializarGrafo()
 {
-    vector<vector<pair<int, int>>> nuevoGrafo((imagen.getDimensionX() * imagen.getDimensionY()));
+    vector<vector<pair<int, int>>> nuevoGrafo((imagen.getDimensionX() * imagen.getDimensionY()) + 1);
     grafo = nuevoGrafo;
     vector<vector<int>> valores = imagen.getVecImagen();
-    for (int y = 0; y < imagen.getDimensionY(); ++y)
+    cout << "Dimensiones esperadas: " << imagen.getDimensionY() << " x " << imagen.getDimensionX() << endl;
+    cout << "Dimensiones reales: " << valores.size();
+    if (!valores.empty())
+        cout << " x " << valores[0].size() << endl;
+    for (int y = 0; y < imagen.getDimensionY(); y++)
     {
-        for (int x = 0; x < imagen.getDimensionX(); ++x)
+        for (int x = 0; x < imagen.getDimensionX(); x++)
         {
-            int actual_id = y * imagen.getDimensionX() + x;
+            int actual_id = (y * imagen.getDimensionX()) + x;
             int valor_actual = valores[y][x];
 
-            // Vecinos en 4 direcciones: arriba, abajo, izquierda, derecha
             if (y > 0)
-            { // arriba
+            {
                 int vecino_id = (y - 1) * imagen.getDimensionX() + x;
                 int peso = abs(valor_actual - valores[y - 1][x]);
-                cout<<"el peso es: "<<peso<<endl;
+                //cout << "el peso es: " << peso << "y revisar el id " << actual_id << " con su vecino " << vecino_id << " este es el 1" << endl;
                 grafo[actual_id].push_back({vecino_id, peso});
             }
             if (y < imagen.getDimensionY() - 1)
-            { // abajo
+            {
                 int vecino_id = (y + 1) * imagen.getDimensionX() + x;
                 int peso = abs(valor_actual - valores[y + 1][x]);
+                //cout << "el peso es: " << peso << "y revisar el id " << actual_id << " con su vecino " << vecino_id << " este es el 2" << endl;
                 grafo[actual_id].push_back({vecino_id, peso});
             }
             if (x > 0)
-            { // izquierda
+            {
                 int vecino_id = y * imagen.getDimensionX() + (x - 1);
                 int peso = abs(valor_actual - valores[y][x - 1]);
+                //cout << "el peso es: " << peso << "y revisar el id " << actual_id << " con su vecino " << vecino_id << " este es el 3" << endl;
                 grafo[actual_id].push_back({vecino_id, peso});
             }
             if (x < imagen.getDimensionX() - 1)
-            { // derecha
+            {
                 int vecino_id = y * imagen.getDimensionX() + (x + 1);
+                //cout << "se calcula el id vecino" << endl;
                 int peso = abs(valor_actual - valores[y][x + 1]);
+                //cout << "se calcula el peso" << endl;
+                //cout << "el peso es: " << peso << "y revisar el id " << actual_id << " con su vecino " << vecino_id << " este es el 4" << endl;
                 grafo[actual_id].push_back({vecino_id, peso});
             }
         }
     }
+    cout<<"terminado"<<endl;
 }
 
 void Grafo::inicializarDistancias()
 {
-    pair<int, int> valorPorDefecto = {-1, -1};
+    int max = INT_MAX;
+    pair<int, int> valorPorDefecto = {max, 0};
     for (int i = 0; i < imagen.getDimensionY(); i++)
     {
         distancias.push_back(vector<pair<int, int>>());
@@ -98,7 +108,8 @@ void Grafo::inicializarDistancias()
 }
 
 void Grafo::imprimirGrafo()
-{   fstream archivo;
+{
+    fstream archivo;
     archivo.open("revision.txt");
     for (int i = 0; i < grafo.size(); i++)
     {
@@ -109,4 +120,85 @@ void Grafo::imprimirGrafo()
         }
     }
     archivo.close();
+}
+
+int Grafo::calcularId(int x, int y)
+{
+    return ((y * imagen.getDimensionX()) + x);
+}
+
+pair<int, int> Grafo::calcularCordenadas(int id)
+{
+    pair<int, int> res;
+    int y = id / imagen.getDimensionX();
+    int x = id % imagen.getDimensionX();
+    res = {x, y};
+    return res;
+}
+
+void Grafo::segmentarImagen(string nombre, vector<tuple<int, int, int>> semillas)
+{
+    int etiquetaMaxima = 0;
+    for (int i = 0; i < semillas.size(); i++)
+    {
+        cout<<"La semilla "<<i<<" es: ";
+        tuple<int, int, int> tupla = semillas[i];
+        int corX = get<0>(tupla);
+        cout<<"X: "<<corX;
+        int corY = get<1>(tupla);
+        cout<<" Y: "<<corY;
+        int etiqueta = get<2>(tupla);
+        if(etiqueta > etiquetaMaxima){
+            etiquetaMaxima = etiqueta;
+        }
+        cout<<" L: "<<etiqueta<<endl;
+        int posicion = calcularId(corX, corY);
+        distancias[corY][corX] = {0, etiqueta};
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+        vector<bool> visitado((imagen.getDimensionX() * imagen.getDimensionY()), false);
+        int id = calcularId(corX, corY);
+        q.push({0, id});
+        while (!q.empty())
+        {
+            int a = q.top().second;
+            q.pop();
+            if (visitado[a])
+                continue;
+            visitado[a] = true;
+            for (auto u : grafo[a])
+            {
+                int b = u.first, w = u.second;
+                pair<int, int> auxiliar = calcularCordenadas(a);
+                int temX, temY;
+                temX = auxiliar.first;
+                temY = auxiliar.second;
+                pair<int, int> auxiliar2 = calcularCordenadas(b);
+                int temX2, temY2;
+                temX2 = auxiliar2.first;
+                temY2 = auxiliar2.second;
+                if (distancias[temY][temX].first + w < distancias[temY2][temX2].first)
+                {
+                    distancias[temY2][temX2].first = distancias[temY][temX].first + w;
+                    distancias[temY2][temX2].second = etiqueta;
+                    q.push({distancias[temY2][temX2].first, b});
+                }
+            }
+        }
+    }
+    vector<vector<int>> nuevasFrecuencias(imagen.getDimensionY(), vector<int>(imagen.getDimensionX()));
+    for (int i = 0; i < imagen.getDimensionY(); i++)
+    {
+        for (int j = 0; j < imagen.getDimensionX(); j++)
+        {
+            nuevasFrecuencias[i][j] = distancias[i][j].second;
+        }
+    }
+    imagenSegmentada.setDimensionX(imagen.getDimensionX());
+    imagenSegmentada.setDimensionY(imagen.getDimensionY());
+    string formato = "P2";
+    imagenSegmentada.setFormato(formato);
+    imagenSegmentada.setNombre(nombre);
+    imagenSegmentada.setMaxClaro(etiquetaMaxima);
+    imagenSegmentada.setVecImagen(nuevasFrecuencias);
+    imagenSegmentada.guardarComoPGM(nombre);
 }
