@@ -33,7 +33,7 @@ void menu()
     cout << "| proyeccion2D [direccion] [criterio] [nombre_archivo.pgm]      |" << endl;
     cout << "| codificar_imagen [nombre_archivo.huf]                         |" << endl;
     cout << "| decodificar_archivo [nombre_archivo.huf] [nombre_imagen.pgm]  |" << endl;
-    cout << "| segmentar [nombre_salida.pgm] x1 y1 l1 x2 y2 l2 ...           |" << endl;
+    cout << "| segmentar [nombre_salida.pgm] [x1 y1 l1] [x2 y2 l2] ...       |" << endl;
     cout << "| salir                                                         |" << endl;
     cout << "└---------------------------------------------------------------┘" << endl;
     cout << "$ ";
