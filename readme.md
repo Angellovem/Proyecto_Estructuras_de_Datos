@@ -118,5 +118,5 @@ cargar_imagen img_02.pgm
 ```
 Segmentar imagen
 ```bash
-segmentar salida01.pgm x1 y1 l1 x2 y2 l2
+segmentar salida01.pgm x1 y1 l1 x2 y2 l2 ...
 ```
