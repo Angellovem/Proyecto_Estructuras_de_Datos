@@ -102,3 +102,21 @@ Decodificar archivo
 ```bash
 decodificar_archivo datos.huf salida.pgm
 ```
+
+## 🚚 Entrega
+
+Esta entrega corresponde a la entrega 3 del proyecto de Estructuras de datos
+
+
+## 🖥️  Uso
+
+Por la estructura del codigo consta de 1 comando nuevo y 1 anterior.
+
+Cargar imagen
+```bash
+cargar_imagen img_02.pgm
+```
+Segmentar imagen
+```bash
+segmentar salida01.pgm x1 y1 l1 x2 y2 l2
+```
